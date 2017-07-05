@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="/static/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="/static/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">总人数</span>
+                    <h5>管理员</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$num.admin}
+                        <small>位</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">总人数</span>
+                    <h5>用户</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$num.user}
+                        <small>位</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-warning pull-right">总项数</span>
+                    <h5>成果总数</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$num.cg}
+                        <small>项</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">总项数</span>
+                    <h5>待审核成果数</h5>
+                </div>
+                <div class="ibox-content ">
+                    <h1 class="no-margins">{$num.cg_check_num}
+                        <small>项</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="col-md-6">
+        <div class="ibox  float-e-margins">
+            <div class="ibox-title">
+                <h5>系统信息</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <table class="table table-striped">
+                    <tr>
+                        <td>服务器系统</td>
+                        <td>{$Think.const.PHP_OS}</td>
+                    </tr>
+                    <tr>
+                        <td>运行环境</td>
+                        <td>{$_SERVER['SERVER_SOFTWARE']}</td>
+                    </tr>
+                    <tr>
+                        <td>ThinkPHP版本</td>
+                        <td>ThinkPHP V{$Think.VERSION}</td>
+                    </tr>
+                    <tr>
+                        <td>成果管理系统版本</td>
+                        <td>CgAdmin </td>
+                    </tr>
+                    <tr>
+                        <td>域名</td>
+                        <td>{$_SERVER['SERVER_NAME']}</td>
+                    </tr>
+                    <tr>
+                        <td>服务器 IP</td>
+                        <td>{$_SERVER['SERVER_ADDR']}</td>
+                    </tr>
+                    <tr>
+                        <td>远程 IP</td>
+                        <td>{$_SERVER['REMOTE_ADDR']}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>管理员信息</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <table class="table table-striped">
+                    <tr>
+                        <td>超级管理员用户名</td>
+                        <td>{$Think.session.ext_user.username}</td>
+                    </tr>
+                    <tr>
+                        <td>超级管理员邮箱</td>
+                        <td>{$Think.session.ext_user.email}</td>
+                    </tr>
+                    <tr>
+                        <td>服务器管理员</td>
+                        <td>{$_SERVER['SERVER_ADMIN']}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+</div>
+
+
+
+
+
+<div class="col-md-6">
+    <div class="ibox-content">
+        <div>
+            <div>
+                <span>硬盘占用</span>
+                <small class="pull-right">{php} $df=disk_free_space("/")/1000000000;  echo $df;{/php}
+                    /{php} $dff=disk_total_space("/")/1000000000;  echo $dff; {/php} GB
+                </small>
+            </div>
+            {php}
+            echo '<div class="progress progress-small"><div style="width: ';
+            $dfff = ceil((1-(disk_free_space("/")/disk_total_space("/")))*100);
+            echo $dfff;
+            echo '%"class="progress-bar"></div></div>';
+               {/php}
+
+    <div>
+        <span>脚本内存限制</span>
+        <small class="pull-right">{php}
+echo get_cfg_var ("memory_limit")?get_cfg_var("memory_limit"):"无"
+{/php}</small>
+    </div>
+    <div class="progress progress-small">
+        <div style="width: 60%;" class="progress-bar"></div>
+    </div>
+
+    <div>
+        <span>POST提交最大限制</span>
+        <small class="pull-right"><?PHP
+echo get_cfg_var ("post_max_size")?get_cfg_var("post_max_size"):"无"
+?></small>
+    </div>
+    <div class="progress progress-small">
+        <div style="width: 20%;" class="progress-bar "></div>
+    </div>
+
+    <div>
+        <span>上传文件最大限制</span>
+        <small class="pull-right"><?PHP
+echo get_cfg_var ("upload_max_filesize")?get_cfg_var("upload_max_filesize"):"无"
+?></small>
+    </div>
+    <div class="progress progress-small">
+        <div style="width: 80%;" class="progress-bar progress-bar-warning"></div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- 全局js -->
+<script src="/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- Flot -->
+<script src="/static/js/plugins/flot/jquery.flot.js"></script>
+<script src="/static/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="/static/js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="/static/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="/static/js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="/static/js/plugins/flot/jquery.flot.symbol.js"></script>
+
+<!-- Peity -->
+<script src="/static/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="/static/js/demo/peity-demo.js"></script>
+
+<!-- 自定义js -->
+<script src="/static/js/content.js?v=1.0.0"></script>
+
+
+<!-- jQuery UI -->
+<script src="/static/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- Jvectormap -->
+<script src="/static/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/static/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+<!-- EayPIE -->
+<script src="/static/js/plugins/easypiechart/jquery.easypiechart.js"></script>
+
+<!-- Sparkline -->
+<script src="/static/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Sparkline demo data  -->
+<script src="/static/js/demo/sparkline-demo.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="nav-close"><i class="fa fa-times-circle"></i>
+    </div>
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                               <span class="block m-t-xs"><strong class="font-bold">{$Think.session.ext_user.email}</strong></span>
+                                <span class="text-muted text-xs block">管理员<b class="caret"></b></span>
+                                </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a class="J_menuItem " href="admin_change_password">修改密码</a>
+                        </li>
+                        <li><a class="J_menuItem admin_logout"  disabled="true">退出登录</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="logo-element">UJN
+                </div>
+            </li>
+
+
+            <li>
+                <a class="J_menuItem" href="admin_sysinfo"><i class="fa fa-desktop"></i> <span
+                        class="nav-label">系统信息</span></a>
+            </li>
+
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-users"></i>
+                    <span class="nav-label">教师用户管理</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a class="J_menuItem" href="admin_add_user" data-index="0">新增教师</a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="admin_upload_user" data-index="0">导入导出教师信息</a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="admin_user_list">教师信息维护</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-cogs"></i>
+                    <span class="nav-label">成果分类信息维护</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a class="J_menuItem" href="admin_add_sort">创建新分类</a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="admin_sort_list">分类信息维护</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-cogs"></i>
+                    <span class="nav-label">成果信息管理</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a class="J_menuItem" href="admin_cg_add" data-index="0">录入成果</a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="admin_upload_cg" data-index="0">导入导出成果</a>
+                    </li>
+
+                    <li>
+                        <a class="J_menuItem" href="admin_cg_list">成果信息维护</a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="admin_cg_report_list">成果申诉信息处理</a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li>
+                <a class="J_menuItem" href="admin_cg_check_list"><i class="fa fa-check-square-o"></i> <span
+                        class="nav-label"> 成果审核</span></a>
+            </li><li>
+                <a class="J_menuItem" href="admin_help"><i class="fa fa-info-circle"></i> <span
+                        class="nav-label"> 帮助信息</span></a>
+            </li>
+
+
+        </ul>
+    </div>
+</nav>
+

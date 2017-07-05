@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>成果管理系统 - 修改成果 页面</title>
+    <meta name="keywords" content="成果管理,济南大学成果管理系统,成果管理信息系统,信息学院成果管理系统">
+    <meta name="description" content="cgadmin 是一个记录和分析教师科研及教学成果的,基于 ThinkPHP 5.0技术开发的信息管理系统。">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>编辑成果</h5>
+                </div>
+                <div class="ibox-content">
+                    <h2>
+                        编辑成果信息
+                    </h2>
+                    <p>
+                        <!--下面这个示例展示了如何在表单向导中使用 jQuery Validation 插件-->
+                    </p>
+
+                    <form id="form" action="do_admin_cg_mod" method="post" class="wizard-big">
+                        <input type="hidden" name="pid" value="{$cg.id}">
+                        <input type="hidden" name="pcg_name" value="{$cg.cg_name}">
+                        <input type="hidden" name="pcg_owner" value="{$cg.cg_owner}">
+                        <input type="hidden" name="pcg_date" value="{$cg.cg_date}">
+                        <input type="hidden" name="pcg_sorta" value="{$cg.cg_sorta}">
+                        <input type="hidden" name="pcg_sortb" value="{$cg.cg_sortb}">
+                        <input type="hidden" name="pcg_id" value="{$cg.cg_id}">
+                        <input type="hidden" name="pcg_source" value="{$cg.cg_source}">
+                        <input type="hidden" name="pcg_unit" value="{$cg.cg_unit}">
+                        <input type="hidden" name="pcg_fund" value="{$cg.cg_fund}">
+                        <input type="hidden" name="pcg_file_url" value="{$cg.cg_file_url}">
+                        <input type="hidden" name="pcg_addition_1" value="{$cg.cg_addition_1}">
+                        <input type="hidden" name="pcg_addition_2" value="{$cg.cg_addition_2}">
+                        <input type="hidden" name="pcg_addition_3" value="{$cg.cg_addition_3}">
+                        <h1>必填项</h1>
+                        <fieldset>
+                            <h2>必填项 </h2>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>项目名称 *</label>
+                                        <input name="cg_name" type="text" value="{$cg.cg_name}" class="form-control required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>负责人 *</label>
+                                        <input name="cg_owner" type="text" value="{$cg.cg_owner}" class="form-control required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>时间 *</label>
+                                        <input name="cg_date" type="text" value="{$cg.cg_date}" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>类别一 *</label>
+                                        <select class="form-control m-b required" id="sorta" name="cg_sorta"
+                                                onchange="getsortb()" >
+                                            <option value=""></option>
+                                            <option value="{$cg.cg_sorta}" selected>{$cg.cg_sorta}</option>
+                                            {volist name = "sort" id = "vo"}
+                                            {neq name="$vo.sorta" value="$cg.cg_sorta"}
+                                            <option value="{$vo.sorta}">{$vo.sorta}</option>
+                                            {/neq}
+                                            {/volist}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>类别二 *
+                                            <small id="sortb_small">&emsp;请先选择类别一</small>
+                                        </label>
+                                        <select class="form-control m-b required" id="sortb" name="cg_sortb">
+                                            <option value="{$cg.cg_sortb}" selected>{$cg.cg_sortb}</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <h1>选填项</h1>
+                        <fieldset>
+                            <h2>选填项</h2>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>项目编号 &emsp;
+                                            <small>批准号、合同号、专利号</small>
+                                        </label>
+                                        {if condition="$cg.cg_id neq ''"}
+                                        <input name="cg_id" value="{$cg.cg_id}" type="text" class="form-control ">
+                                        {else /}
+                                        <input name="cg_id"  type="text" class="form-control ">
+                                        {/if}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>项目来源 </label>
+                                        {if condition="$cg.cg_source neq ''"}
+                                        <input name="cg_source" value="{$cg.cg_source}" type="text" class="form-control ">
+                                        {else /}
+                                        <input name="cg_source"  type="text" class="form-control ">
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>承担单位</label>
+                                        {if condition="$cg.cg_unit neq ''"}
+                                        <input name="cg_unit" value="{$cg.cg_unit}" type="text" class="form-control ">
+                                        {else /}
+                                        <input name="cg_unit"  type="text" class="form-control ">
+                                        {/if}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>经费（万元）</label>
+                                        {if condition="$cg.cg_id neq ''"}
+                                        <input name="cg_fund" value="{$cg.cg_fund}" type="text" class="form-control ">
+                                        {else /}
+                                        <input name="cg_fund"  type="text" class="form-control ">
+                                        {/if}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <h1>附件上传</h1>
+                        <fieldset>
+                            <h1>附件上传</h1>
+                            <br><br>
+                            <p>1. 系统支持上传最大文件大小为2M。</p>
+                            <p>2. 系统仅支持 zip 格式文件上传，请将文件打包为 zip 文件后上传。</p>
+                            <br>
+                            <p id="show_cg_file_url">当前附件地址：
+                                {if condition="$cg.cg_file_url neq ''" }
+                                {$cg.cg_file_url}
+                                {else /}
+                                暂未上传文件
+                                {/if}
+                            </p>
+
+                            <p>
+                                <input type="hidden" name="cg_file_url" id="cg_file_url">
+                                <a class="btn btn-info btn-lg" role="button" data-toggle="modal"
+                                   data-target="#myModal"><i class="fa fa-upload"></i>&emsp;上传附件</a>&emsp;&emsp;
+                            </p>
+                        </fieldset>
+
+                        <h1>补充项</h1>
+                        <fieldset>
+                            <div class="col-sm-9">
+                                <div class="form-group col-sm-4">
+                                    <label>补充项一&emsp;
+                                        <small>标题</small>
+                                    </label>
+                                    {if condition="$cg.cg_addition_1 neq ''"}
+                                    <input name="cg_addition1_title" value="{$cg.cg_addition1_title}" type="text" class="form-control ">
+                                    {else /}
+                                    <input name="cg_addition1_title"  type="text" class="form-control ">
+                                    {/if}
+                                </div>
+                                <div class="form-group col-sm-7">
+                                    <label>补充项一&emsp;
+                                        <small>内容</small>
+                                    </label>
+                                    {if condition="$cg.cg_addition_1 neq ''"}
+                                    <input name="cg_addition1_content" value="{$cg.cg_addition1_content}" type="text" class="form-control ">
+                                    {else /}
+                                    <input name="cg_addition1_content"  type="text" class="form-control ">
+                                    {/if}
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group col-sm-4">
+                                    <label>补充项二&emsp;
+                                        <small>标题</small>
+                                    </label>
+                                    {if condition="$cg.cg_addition_2 neq ''"}
+                                    <input name="cg_addition2_title" value="{$cg.cg_addition2_title}" type="text" class="form-control ">
+                                    {else /}
+                                    <input name="cg_addition2_title"  type="text" class="form-control ">
+                                    {/if}
+                                </div>
+                                <div class="form-group col-sm-7">
+                                    <label>补充项二&emsp;
+                                        <small>内容</small>
+                                    </label>
+                                    {if condition="$cg.cg_addition_2 neq ''"}
+                                    <input name="cg_addition2_content" value="{$cg.cg_addition2_content}" type="text" class="form-control ">
+                                    {else /}
+                                    <input name="cg_addition2_content"  type="text" class="form-control ">
+                                    {/if}
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group col-sm-4">
+                                    <label>补充项三&emsp;
+                                        <small>标题</small>
+                                    </label>
+                                    {if condition="$cg.cg_addition_3 neq ''"}
+                                    <input name="cg_addition3_title" value="{$cg.cg_addition3_title}" type="text" class="form-control ">
+                                    {else /}
+                                    <input name="cg_addition3_title"  type="text" class="form-control ">
+                                    {/if}
+                                </div>
+                                <div class="form-group col-sm-7">
+                                    <label>补充项三&emsp;
+                                        <small>内容</small>
+                                    </label>
+                                    {if condition="$cg.cg_addition_3 neq ''"}
+                                    <input name="cg_addition3_content" value="{$cg.cg_addition3_content}" type="text" class="form-control ">
+                                    {else /}
+                                    <input name="cg_addition3_content"  type="text" class="form-control ">
+                                    {/if}
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">关闭</span>
+                </button>
+                <i class="fa fa-upload modal-icon"></i>
+                <h4 class="modal-title">上传附件</h4>
+            </div>
+            <form action="upload_zip_file" id="uploadForm" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <p>
+                        系统仅支持 zip 格式文件上传，请将文件打包为 zip 文件后上传。
+                    </p>
+                    <div class="form-group">
+                        <input type="file" name="cg_file" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="doUpload()" data-dismiss="modal">上传</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- 全局js -->
+<script src="/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+<!--<script src="/static/js/plugins/jQueryForm.min.js"></script>-->
+
+<!-- Steps -->
+<script src="/static/js/plugins/staps/jquery.steps.min.js"></script>
+
+<!-- Jquery Validate -->
+<script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/static/js/plugins/validate/messages_zh.min.js"></script>
+
+<!-- 第三方插件 -->
+<script src="/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#wizard").steps();
+        $("#form").steps({
+            bodyTag: "fieldset",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                // Always allow going backward even if the current step contains invalid fields!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+
+                // Forbid suppressing "Warning" step if the user is to young
+                if (newIndex === 3 && Number($("#age").val()) < 18) {
+                    return false;
+                }
+
+                var form = $(this);
+
+                // Clean up if user went backward before
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    $(".body:eq(" + newIndex + ") label.error", form).remove();
+                    $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                }
+
+                // Disable validation on fields that are disabled or hidden.
+                form.validate().settings.ignore = ":disabled,:hidden";
+
+                // Start validation; Prevent going forward if false
+                return form.valid();
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                // Suppress (skip) "Warning" step if the user is old enough.
+                if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                    $(this).steps("next");
+                }
+
+                // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                if (currentIndex === 2 && priorIndex === 3) {
+                    $(this).steps("previous");
+                }
+            },
+            onFinishing: function (event, currentIndex) {
+                var form = $(this);
+
+                // Disable validation on fields that are disabled.
+                // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                form.validate().settings.ignore = ":disabled";
+
+                // Start validation; Prevent form submission if false
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex) {
+                var form = $(this);
+
+                // Submit form input
+                form.submit();
+            }
+        }).validate({
+            errorPlacement: function (error, element) {
+                element.before(error);
+            },
+            rules: {
+                confirm: {
+                    equalTo: "#password"
+                }
+            }
+        });
+    });
+
+    function getsortb() {
+        var content = $.trim($("#sorta").val());
+        var data = {
+            sorta: content
+        };
+        $.ajax({
+            url: 'get_sortb_by_sorta',
+            type: 'POST',
+            dataType: 'json',
+            data: data
+        })
+            .done(function (data) {
+                if (data.status == 1) {
+                    var $option = data.data;
+                    $("#sortb option").remove();
+                    $("#sortb_small").remove();
+                    if ($option[0] == 0) {
+                        $("#sortb").append("<option value='" + content + "'>" + content + "</option>");
+                    } else {
+                        for (var i = 1; i <= $option[0]; i++) {
+                            $("#sortb").append("<option value='" + $option[i] + "'>" + $option[i] + "</option>");
+                        }
+                    }
+                } else {
+                    alert("加载二级分类失败，请刷新页面后重试1");
+                }
+            })
+            .fail(function (data) {
+                alert("加载二级分类失败，请刷新页面后重试2");
+            });
+    }
+
+
+    function doUpload() {
+        var formData = new FormData($("#uploadForm")[0]);
+        $.ajax({
+            url: 'upload_zip_file',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+        })
+            .done(function (data) {
+                if (data.result == 0) {
+                    console.log(data.info);
+                    sweetAlert("恭喜", "文件上传成功", "success");
+                    $("#cg_file_url").val(data.info);
+                    $("#show_cg_file_url").text("当前附件地址："+data.info);
+                } else {
+                    sweetAlert("注意", data.info, "error");
+                }
+            })
+            .fail(function (data) {
+                sweetAlert("上传失败", "文件过大或格式错误", "error");
+            })
+    }
+
+    $("#cancel").on('click',function () {
+        window.history.go(-1);
+    })
+
+
+</script>
+
+
+</body>
+
+</html>

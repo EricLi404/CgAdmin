@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>成果管理系统 - 新增教师 页面</title>
+    <meta name="keywords" content="成果管理,济南大学成果管理系统,成果管理信息系统,信息学院成果管理系统">
+    <meta name="description" content="cgadmin 是一个记录和分析教师科研及教学成果的,基于 ThinkPHP 5.0技术开发的信息管理系统。">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>新增教师 <small>默认登录账号为邮箱，默认登录密码为123456。</small></h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" method="post" action="do_admin_add_user" id="signupForm">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">邮箱：</label>
+                            <div class="col-sm-8">
+                                <input id="email" name="email" class="form-control" type="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">姓名：</label>
+                            <div class="col-sm-8">
+                                <input id="username" name="username" class="form-control" type="text" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学校（单位）：</label>
+                            <div class="col-sm-8">
+                                <input id="school" name="school" class="form-control" type="text" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学院（部门）：</label>
+                            <div class="col-sm-8">
+                                <input id="college" name="college" class="form-control" type="text" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">研究专长：</label>
+                            <div class="col-sm-8">
+                                <input id="direction" name="direction" class="form-control" type="text" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">个人介绍：</label>
+                            <div class="col-sm-8">
+                                <textarea id="resume" name="resume" class="form-control" rows="8" type="text"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- 全局js -->
+<script src="/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+<!-- jQuery Validation plugin javascript-->
+<script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/static/js/plugins/validate/messages_zh.min.js"></script>
+
+<script type="text/javascript">
+    //以下为修改jQuery Validation插件兼容Bootstrap的方法，没有直接写在插件中是为了便于插件升级
+    $.validator.setDefaults({
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            element.closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+        errorElement: "span",
+        errorPlacement: function (error, element) {
+            if (element.is(":radio") || element.is(":checkbox")) {
+                error.appendTo(element.parent().parent().parent());
+            } else {
+                error.appendTo(element.parent());
+            }
+        },
+        errorClass: "help-block m-b-none",
+        validClass: "help-block m-b-none"
+
+
+    });
+
+    //以下为官方示例
+    $().ready(function () {
+        // validate the comment form when it is submitted
+        $("#commentForm").validate();
+
+        // validate signup form on keyup and submit
+        var icon = "<i class='fa fa-times-circle'></i> ";
+        $("#signupForm").validate({
+            rules: {
+                username: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                school: {
+                    required: true
+                },
+                college:{
+                    required:true
+                },
+                direction:{
+                    required:true
+                }
+            },
+            messages: {
+                username: {
+                    required: icon + "请输入用户姓名"
+                },
+                school: {
+                    required: icon + "请输入用户就职的高校或单位"
+                },
+                 college: {
+                    required: icon + "请输入用户就职的学院或部门"
+                },
+                direction: {
+                    required: icon + "请输入用户的研究专长"
+                }
+            }
+        });
+
+    });
+
+</script>
+
+
+</body>
+
+</html>

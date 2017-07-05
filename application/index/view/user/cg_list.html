@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>成果管理系统 - 首页</title>
+    <meta name="keywords" content="成果管理,济南大学成果管理系统,成果管理信息系统,信息学院成果管理系统">
+    <meta name="description" content="cgadmin 是一个记录和分析教师科研及教学成果的,基于 ThinkPHP 5.0技术开发的信息管理系统。">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <style type="text/css">
+        a:link {
+            color: #535557;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #535557;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #535557;
+            text-decoration: none;
+        }
+
+        a:active {
+            color: #535557;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>成果查询 </h5>
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                        <tr>
+                            <th>项目名称</th>
+                            <th>负责人</th>
+                            <th>类别一</th>
+                            <th>类别二</th>
+                            <th>时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name = "list" id = "vo"}
+                        <tr>
+                            <td>{$vo.cg_name}</td>
+                            <td>{$vo.cg_owner}</td>
+                            <td>{$vo.cg_sorta}</td>
+                            <td>{$vo.cg_sortb}</td>
+                            <td>{$vo.cg_date}</td>
+                            <td>
+                                &emsp;<a href="user_cg_info?id={$vo.id}"> <i class="fa fa-file-text-o"> 详情</i></a>
+                            </td>
+                        </tr>
+                        {/volist}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+<!-- Data Tables -->
+<script src="/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function () {
+        $('.dataTables-example').dataTable();
+    });
+
+
+</script>
+
+
+</body>
+
+</html>
