@@ -35,7 +35,6 @@
 
 ### [ 分享精神 ]
 
-非常感谢您的支持！如果您喜欢CgAdmin，请将它介绍给自己的朋友，或者帮助他人安装一个OneThink，又或者写一篇赞扬我们的文章。
 
 CgAdmin是基于ThinkPHP、jQuery等开源框架开发。由[李宇阳](http://blog.csdn.net/leiflyy) 完成开发。如果您愿意支持我的工作，欢迎您对给我一个 Star。
 
